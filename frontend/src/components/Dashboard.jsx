@@ -17,15 +17,61 @@ import {
 
 export default function Dashboard({ 
   dashboardData, 
+  isLoading,
+  error,
+  onRetry,
   onSelectTopic, 
   onSelectQuestion, 
   onGoToPractice, 
   onGoToAnalysis 
 }) {
+  if (error && !dashboardData) {
+    return (
+      <div style={{ textAlign: 'center', padding: '4rem 1.5rem', maxWidth: '600px', margin: '0 auto' }}>
+        <div style={{ 
+          background: 'rgba(239, 68, 68, 0.1)', 
+          border: '1px solid rgba(239, 68, 68, 0.25)', 
+          borderRadius: '12px', 
+          padding: '2rem' 
+        }}>
+          <div style={{ fontSize: '1.25rem', fontWeight: 600, color: '#f87171', marginBottom: '0.75rem' }}>
+            Cannot Connect to Backend
+          </div>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>
+            {error}
+          </p>
+          <p style={{ color: 'var(--text-muted, #94a3b8)', fontSize: '0.85rem', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+            💡 <strong>Tip:</strong> If your backend is hosted on Render's free tier, it spins down when idle and takes about 50 seconds to wake up. Please wait a moment and click Retry.
+          </p>
+          <button 
+            onClick={onRetry}
+            style={{
+              padding: '0.65rem 1.75rem',
+              background: '#3b82f6',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '0.95rem',
+              fontWeight: 600,
+              cursor: 'pointer'
+            }}
+          >
+            Retry Connection
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   if (!dashboardData) {
     return (
-      <div style={{ textAlign: 'center', padding: '4rem 1rem' }}>
-        <div style={{ fontSize: '1.25rem', color: 'var(--text-secondary)' }}>Loading student dashboard...</div>
+      <div style={{ textAlign: 'center', padding: '4rem 1.5rem' }}>
+        <div style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
+          Loading student dashboard...
+        </div>
+        <div style={{ fontSize: '0.85rem', color: 'var(--text-muted, #94a3b8)' }}>
+          Connecting to backend service. If Render is waking up from sleep, this may take up to 60 seconds...
+        </div>
       </div>
     );
   }

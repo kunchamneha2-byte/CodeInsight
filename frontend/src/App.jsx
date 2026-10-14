@@ -12,16 +12,24 @@ export default function App() {
   const [selectedQuestionId, setSelectedQuestionId] = useState(null);
   const [selectedTopicSlug, setSelectedTopicSlug] = useState('ALL');
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
+
   useEffect(() => {
     loadDashboardData();
   }, []);
 
   const loadDashboardData = async () => {
     try {
+      setIsLoading(true);
+      setLoadError(null);
       const data = await api.getDashboardSummary();
       setDashboardData(data);
     } catch (err) {
       console.error('Failed to load dashboard data:', err);
+      setLoadError(err.message || 'Unable to connect to backend server');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -66,6 +74,9 @@ export default function App() {
         {activeTab === 'dashboard' && (
           <Dashboard
             dashboardData={dashboardData}
+            isLoading={isLoading}
+            error={loadError}
+            onRetry={loadDashboardData}
             onSelectTopic={handleSelectTopic}
             onSelectQuestion={handleSelectQuestion}
             onGoToPractice={() => {
