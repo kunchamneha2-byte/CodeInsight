@@ -1,8 +1,8 @@
 const getApiBase = () => {
   const raw = import.meta.env.VITE_API_BASE_URL;
   if (!raw) return '/api';
-  const trimmed = raw.replace(/\/+$/, '');
-  return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`;
+  const sanitized = raw.replace(/[<>'"\s]/g, '').replace(/\/+$/, '');
+  return sanitized.endsWith('/api') ? sanitized : `${sanitized}/api`;
 };
 
 const API_BASE = getApiBase();
