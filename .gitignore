@@ -1,0 +1,74 @@
+# ====================================================================
+# CodeInsight Root .gitignore
+# Excludes compiled binaries, dependencies, secret envs, and IDE files
+# ====================================================================
+
+# 1. Environment variables & Secrets (NEVER commit secrets!)
+.env
+.env.local
+.env.*.local
+*.env
+*.pem
+*.key
+
+# 2. Backend - Java & Maven
+**/target/
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+.mvn/wrapper/maven-wrapper.jar
+**/.mvn/wrapper/maven-wrapper.jar
+
+# 3. Frontend - Node.js, React & Vite
+**/node_modules/
+node_modules/
+**/dist/
+dist/
+dist-ssr/
+*.local
+
+# 4. Log Files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 5. IDE & Editor Artifacts
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.classpath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+.apt_generated/
+
+# 6. Operating System Specific
+.DS_Store
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+
+# 7. Temporary / Scratch Files
+scratch/
+tmp/
+*.tmp
